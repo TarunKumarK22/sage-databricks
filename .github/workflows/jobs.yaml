@@ -77,7 +77,7 @@ jobs:
         run: |
           # Use the Databricks API to get details of the selected job
             job_id="${{ steps.job_ids.outputs.job_ids }}"
-            databricks_url="https://your-databricks-url/api/2.0/jobs/get?job_id=${job_id}"
+            databricks_url="https://your-databricks-url/api/2.0/jobs/get?job_id=${496296034538647}"
           # Make an API request to Databricks
           response=$(curl -X GET -H "Authorization: Bearer $DATABRICKS_API_TOKEN" "$databricks_url")
       
