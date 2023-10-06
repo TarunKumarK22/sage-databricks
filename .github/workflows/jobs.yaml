@@ -62,7 +62,7 @@ jobs:
       - name: Call Databricks API and Extract Job IDs
         id: job_ids
         run: |
-          job_ids=$(python .github/workflows/apicall4.py)
+          job_ids=$(python .github/workflows/apicall.py)
           echo "::set-output name=job_ids::${job_ids}"
 
       - name: list Job ID
