@@ -62,7 +62,7 @@ jobs:
       - name: Call Databricks API and Extract Job IDs
         id: job_ids
         run: |
-          job_ids=$(python .github/workflows/apicall.py)
+          job_ids=$(python .github/workflows/apicall4.py)
           echo "::set-output name=job_ids::${job_ids}"
 
       - name: list Job ID
@@ -72,32 +72,7 @@ jobs:
           job_ids: ${{ steps.job_ids.outputs.job_ids }}
         shell: bash
 
-      - name: Get Selected Job Details
-        id: get_job_details
-        run: |
-          # Use the Databricks API to get details of the selected job
-            job_id="${{ steps.job_ids.outputs.job_ids }}"
-            databricks_url="https://your-databricks-url/api/2.0/jobs/get?job_id=${496296034538647}"
-          # Make an API request to Databricks
-          response=$(curl -X GET -H "Authorization: Bearer $DATABRICKS_API_TOKEN" "$databricks_url")
-      
-          # Extract the relevant information from the response
-          job_name=$(echo "$response" | jq -r '.settings.name')
-          job_type=$(echo "$response" | jq -r '.settings.job_type')
-      
-          # Print the job details
-          echo "::set-output name=job_name::$job_name"
-          echo "::set-output name=job_type::$job_type"
-        env:
-          DATABRICKS_API_TOKEN: ${{ secrets.DATABRICKS_API_TOKEN }}
-        shell: bash
-      
-      - name: Display Selected Job Details
-        run: |
-          echo "Selected Job ID: ${{ steps.job_ids.outputs.job_ids }}"
-          echo "Selected Job Name: ${{ steps.get_job_details.outputs.job_name }}"
-          echo "Selected Job Type: ${{ steps.get_job_details.outputs.job_type }}"
-
+     
       # - name: Select Job ID
       #   id: select_job_id
       #   run: |
